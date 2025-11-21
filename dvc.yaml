@@ -1,0 +1,27 @@
+stages:
+  prepare:
+    cmd: python src/data_prep.py data/raw/water_potability.csv data/processed
+    deps:
+      - src/data_prep.py
+      - data/raw/water_potability.csv
+    outs:
+      - data/processed
+
+  train_ann:
+    cmd: python src/train.py data/processed ann
+    deps:
+      - src/train.py
+      - data/processed
+    outs:
+      - models/ann_model.keras
+    metrics:
+      - metrics.json:
+          cache: false
+
+  train_cnn:
+    cmd: python src/train.py data/processed cnn
+    deps:
+      - src/train.py
+      - data/processed
+    outs:
+      - models/cnn_model.keras
