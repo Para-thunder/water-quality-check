@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/esaar/mlops_project/mlruns/235660771959546874/8273c4c29ea94fbbb1ce5af402fae734/artifacts
+end_time: 1763791633050
+entry_point_name: ''
+experiment_id: '235660771959546874'
+lifecycle_stage: active
+run_id: 8273c4c29ea94fbbb1ce5af402fae734
+run_name: ANN_Model
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1763791592581
+status: 3
+tags: []
+user_id: esaar

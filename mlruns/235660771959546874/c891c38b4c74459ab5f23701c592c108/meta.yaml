@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/esaar/mlops_project/mlruns/235660771959546874/c891c38b4c74459ab5f23701c592c108/artifacts
+end_time: 1763791770259
+entry_point_name: ''
+experiment_id: '235660771959546874'
+lifecycle_stage: active
+run_id: c891c38b4c74459ab5f23701c592c108
+run_name: CNN_Model
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1763791739241
+status: 3
+tags: []
+user_id: esaar

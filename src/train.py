@@ -87,6 +87,17 @@ def train_and_evaluate(data_dir, model_type='ann', epochs=10, batch_size=32):
         mlflow.log_metric("recall", recall)
         mlflow.log_metric("f1_score", f1)
         
+        # Save metrics to JSON for DVC
+        import json
+        metrics = {
+            "accuracy": accuracy,
+            "precision": precision,
+            "recall": recall,
+            "f1_score": f1
+        }
+        with open("metrics.json", "w") as f:
+            json.dump(metrics, f)
+        
         # Save model locally for DVC and API
         os.makedirs("models", exist_ok=True)
         model_path = os.path.join("models", f"{model_type}_model.keras")

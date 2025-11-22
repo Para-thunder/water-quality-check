@@ -12,8 +12,16 @@ def load_data(filepath):
     return pd.read_csv(filepath)
 
 def clean_data(df):
-    """Handle missing values by imputing with the mean."""
+    """Handle missing values."""
+    # Drop rows where target is missing
+    df = df.dropna(subset=['Potability'])
+    
+    # Fill missing feature values with the mean
     df.fillna(df.mean(), inplace=True)
+    
+    # If any NaNs remain (e.g., if a column was all NaNs), fill with 0
+    df.fillna(0, inplace=True)
+    
     return df
 
 def preprocess_data(raw_data_path, output_dir):
@@ -38,6 +46,10 @@ def preprocess_data(raw_data_path, output_dir):
     # Combine X and y for saving
     train_df = pd.concat([X_train, y_train.reset_index(drop=True)], axis=1)
     test_df = pd.concat([X_test, y_test.reset_index(drop=True)], axis=1)
+    
+    # Ensure no NaNs in the output
+    train_df.fillna(0, inplace=True)
+    test_df.fillna(0, inplace=True)
     
     os.makedirs(output_dir, exist_ok=True)
     

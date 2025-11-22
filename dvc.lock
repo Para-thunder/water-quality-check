@@ -1,0 +1,57 @@
+schema: '2.0'
+stages:
+  prepare:
+    cmd: python src/data_prep.py data/raw/water_potability.csv data/processed
+    deps:
+    - path: data/raw/water_potability.csv
+      hash: md5
+      md5: 0ff4e98a6bec2b7076cbee63b50252f4
+      size: 15301
+    - path: src/data_prep.py
+      hash: md5
+      md5: 289c78df3c60e797f8a5e9a6c9452a75
+      size: 2283
+    outs:
+    - path: data/processed
+      hash: md5
+      md5: a8bb1d8949ad75663d9d4d89cf7ebdb6.dir
+      size: 19299
+      nfiles: 2
+  train_ann:
+    cmd: python src/train.py data/processed ann
+    deps:
+    - path: data/processed
+      hash: md5
+      md5: a8bb1d8949ad75663d9d4d89cf7ebdb6.dir
+      size: 19299
+      nfiles: 2
+    - path: src/train.py
+      hash: md5
+      md5: 9bd93a87ae02c4ad60513928d3661319
+      size: 4315
+    outs:
+    - path: metrics.json
+      hash: md5
+      md5: ece02148091431dfc5b27f9cc518cce9
+      size: 82
+    - path: models/ann_model.keras
+      hash: md5
+      md5: cd7b62caf6e8785679b67bce9103ccb2
+      size: 62768
+  train_cnn:
+    cmd: python src/train.py data/processed cnn
+    deps:
+    - path: data/processed
+      hash: md5
+      md5: a8bb1d8949ad75663d9d4d89cf7ebdb6.dir
+      size: 19299
+      nfiles: 2
+    - path: src/train.py
+      hash: md5
+      md5: 9bd93a87ae02c4ad60513928d3661319
+      size: 4315
+    outs:
+    - path: models/cnn_model.keras
+      hash: md5
+      md5: a43a9287cec5230b271e89d5876a0374
+      size: 106790
