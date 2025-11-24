@@ -17,18 +17,33 @@
 <body>
     <h2>Water Potability Check</h2>
     <form method="POST" action="/predict_ui">
-        <div class="form-group"><label>pH (0-14)</label><input type="number" step="0.1" name="ph" value="7.0" required></div>
-        <div class="form-group"><label>Hardness</label><input type="number" step="0.1" name="Hardness" value="200.0" required></div>
-        <div class="form-group"><label>Solids</label><input type="number" step="0.1" name="Solids" value="20000.0" required></div>
-        <div class="form-group"><label>Chloramines</label><input type="number" step="0.1" name="Chloramines" value="7.0" required></div>
-        <div class="form-group"><label>Sulfate</label><input type="number" step="0.1" name="Sulfate" value="300.0" required></div>
-        <div class="form-group"><label>Conductivity</label><input type="number" step="0.1" name="Conductivity" value="400.0" required></div>
-        <div class="form-group"><label>Organic Carbon</label><input type="number" step="0.1" name="Organic_carbon" value="15.0" required></div>
-        <div class="form-group"><label>Trihalomethanes</label><input type="number" step="0.1" name="Trihalomethanes" value="60.0" required></div>
-        <div class="form-group"><label>Turbidity</label><input type="number" step="0.1" name="Turbidity" value="4.0" required></div>
+        <div class="form-group"><label>pH (0-14)</label><input type="number" step="any" name="ph" value="{{ form_data.ph if form_data else '9.445' }}" required></div>
+        <div class="form-group"><label>Hardness</label><input type="number" step="any" name="Hardness" value="{{ form_data.Hardness if form_data else '145.8' }}" required></div>
+        <div class="form-group"><label>Solids</label><input type="number" step="any" name="Solids" value="{{ form_data.Solids if form_data else '13168.5' }}" required></div>
+        <div class="form-group"><label>Chloramines</label><input type="number" step="any" name="Chloramines" value="{{ form_data.Chloramines if form_data else '9.44' }}" required></div>
+        <div class="form-group"><label>Sulfate</label><input type="number" step="any" name="Sulfate" value="{{ form_data.Sulfate if form_data else '310.6' }}" required></div>
+        <div class="form-group"><label>Conductivity</label><input type="number" step="any" name="Conductivity" value="{{ form_data.Conductivity if form_data else '592.7' }}" required></div>
+        <div class="form-group"><label>Organic Carbon</label><input type="number" step="any" name="Organic_carbon" value="{{ form_data.Organic_carbon if form_data else '8.6' }}" required></div>
+        <div class="form-group"><label>Trihalomethanes</label><input type="number" step="any" name="Trihalomethanes" value="{{ form_data.Trihalomethanes if form_data else '77.6' }}" required></div>
+        <div class="form-group"><label>Turbidity</label><input type="number" step="any" name="Turbidity" value="{{ form_data.Turbidity if form_data else '3.88' }}" required></div>
         <button type="submit">Check Potability</button>
     </form>
 
+    {% if ann_prediction or rf_prediction %}
+    <div style="display: flex; gap: 20px; margin-top: 20px;">
+        <div class="result {{ ann_class }}" style="flex: 1;">
+            <h3>ANN Model</h3>
+            {{ ann_prediction }} <br>
+            <small>Confidence: {{ ann_confidence }}</small>
+        </div>
+        <div class="result {{ rf_class }}" style="flex: 1;">
+            <h3>Random Forest</h3>
+            {{ rf_prediction }} <br>
+            <small>Confidence: {{ rf_confidence }}</small>
+        </div>
+    </div>
+    {% endif %}
+    
     {% if prediction_text %}
     <div class="result {{ result_class }}">
         {{ prediction_text }} <br>

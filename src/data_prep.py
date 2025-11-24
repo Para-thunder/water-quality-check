@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+from sklearn.impute import KNNImputer
 import joblib
 import os
 import sys
@@ -13,17 +14,24 @@ def load_data(filepath):
     return pd.read_csv(filepath)
 
 def clean_data(df):
-    """Handle missing values."""
+    """Handle missing values using KNN Imputation."""
     # Drop rows where target is missing
     df = df.dropna(subset=['Potability'])
     
-    # Fill missing feature values with the mean
-    df.fillna(df.mean(), inplace=True)
+    # Separate features and target
+    X = df.drop('Potability', axis=1)
+    y = df['Potability']
     
-    # If any NaNs remain (e.g., if a column was all NaNs), fill with 0
-    df.fillna(0, inplace=True)
+    # Use KNN Imputer
+    print("Imputing missing values with KNN...")
+    imputer = KNNImputer(n_neighbors=5)
+    X_imputed = imputer.fit_transform(X)
     
-    return df
+    # Convert back to DataFrame
+    df_imputed = pd.DataFrame(X_imputed, columns=X.columns)
+    df_imputed['Potability'] = y.values
+    
+    return df_imputed
 
 def preprocess_data(raw_data_path, output_dir):
     """Load, clean, scale, and split data."""

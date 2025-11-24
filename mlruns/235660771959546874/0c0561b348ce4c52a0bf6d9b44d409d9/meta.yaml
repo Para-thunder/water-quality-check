@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/esaar/mlops_project/mlruns/235660771959546874/0c0561b348ce4c52a0bf6d9b44d409d9/artifacts
+end_time: 1763995768133
+entry_point_name: ''
+experiment_id: '235660771959546874'
+lifecycle_stage: active
+run_id: 0c0561b348ce4c52a0bf6d9b44d409d9
+run_name: RF_Model
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1763995739215
+status: 3
+tags: []
+user_id: esaar
