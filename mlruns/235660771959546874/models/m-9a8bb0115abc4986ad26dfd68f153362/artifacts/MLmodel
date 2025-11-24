@@ -1,0 +1,22 @@
+artifact_path: file:///C:/Users/esaar/mlops_project/mlruns/235660771959546874/models/m-9a8bb0115abc4986ad26dfd68f153362/artifacts
+flavors:
+  python_function:
+    data: data
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.tensorflow
+    python_version: 3.11.8
+  tensorflow:
+    code: null
+    data: data
+    keras_version: 2.20.0
+    model_type: keras
+    save_format: tf
+mlflow_version: 3.6.0
+model_id: m-9a8bb0115abc4986ad26dfd68f153362
+model_size_bytes: 62786
+model_uuid: m-9a8bb0115abc4986ad26dfd68f153362
+prompts: null
+run_id: 01d737aa35af432c882af6e33cc0b1ce
+utc_time_created: '2025-11-22 07:51:23.019439'

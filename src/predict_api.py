@@ -1,9 +1,15 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-import tensorflow as tf
 import numpy as np
 import pandas as pd
 import os
+
+try:
+    import tensorflow as tf
+    TF_AVAILABLE = True
+except ImportError:
+    TF_AVAILABLE = False
+    print("TensorFlow not available. API will run in mock mode.")
 
 app = FastAPI(title="Water Potability Prediction API")
 
@@ -25,15 +31,25 @@ class WaterData(BaseModel):
 @app.on_event("startup")
 def load_model():
     global model
-    if os.path.exists(MODEL_PATH):
-        model = tf.keras.models.load_model(MODEL_PATH)
-        print(f"Model loaded from {MODEL_PATH}")
+    if TF_AVAILABLE and os.path.exists(MODEL_PATH):
+        try:
+            model = tf.keras.models.load_model(MODEL_PATH)
+            print(f"Model loaded from {MODEL_PATH}")
+        except Exception as e:
+            print(f"Failed to load model: {e}")
     else:
-        print(f"Warning: Model not found at {MODEL_PATH}. API will not work correctly.")
+        print(f"Warning: Model not found at {MODEL_PATH} or TensorFlow missing. API will use mock predictions.")
 
 @app.post("/predict")
 def predict(data: WaterData):
     if model is None:
+        if not TF_AVAILABLE:
+            # Mock prediction for Docker testing without heavy dependencies
+            return {
+                "potability": 1,
+                "probability": 0.85,
+                "note": "Mock prediction (TensorFlow not installed)"
+            }
         raise HTTPException(status_code=503, detail="Model not loaded")
     
     # Convert input to array

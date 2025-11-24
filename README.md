@@ -40,9 +40,31 @@ This project implements an end-to-end MLOps pipeline for predicting water potabi
 - **Data Versioning**: DVC
 - **Experiment Tracking**: MLflow
 - **Modeling**: TensorFlow/Keras (ANN, CNN)
-- **Orchestration**: Apache Airflow (Coming soon)
-- **Deployment**: Docker, AWS (Coming soon)
+- **API**: FastAPI
+- **Interface**: Streamlit & Gradio
+- **Containerization**: Docker
+- **Orchestration**: Apache Airflow (DAGs provided)
+- **Deployment**: AWS App Runner (Guide in `deployment/`)
 
-## License
+## Running the App
+
+1. **Start the API (Docker)**:
+   ```bash
+   docker start water-app
+   ```
+   Or build and run:
+   ```bash
+   docker build -t water-potability-app .
+   docker run -d -p 8000:8000 --name water-app water-potability-app
+   ```
+
+2. **Start the Interface**:
+   ```bash
+   streamlit run src/streamlit_app.py
+   ```
+
+3. **Access**:
+   - API Docs: http://localhost:8000/docs
+   - Interface: http://localhost:8501
 
 MIT

@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+import joblib
 import os
 import sys
 
@@ -59,6 +60,14 @@ def preprocess_data(raw_data_path, output_dir):
     print(f"Saving processed data to {output_dir}...")
     train_df.to_csv(train_path, index=False)
     test_df.to_csv(test_path, index=False)
+    # Save the fitted scaler so we can apply the same transformation at inference time
+    os.makedirs("models", exist_ok=True)
+    scaler_path = os.path.join("models", "scaler.pkl")
+    try:
+        joblib.dump(scaler, scaler_path)
+        print(f"Saved scaler to {scaler_path}")
+    except Exception as e:
+        print(f"Warning: Failed to save scaler: {e}")
     
     print("Data preparation complete.")
 

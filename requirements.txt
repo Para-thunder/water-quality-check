@@ -14,3 +14,7 @@ boto3
 fastapi
 uvicorn
 apache-airflow
+streamlit
+gradio
+docker
+flask
