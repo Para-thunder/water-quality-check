@@ -13,8 +13,8 @@ RUN pip install --no-cache-dir -r requirements_docker.txt
 
 COPY . .
 
-# Expose port for FastAPI
+# Expose port for Flask
 EXPOSE 8000
 
-# Default command to run the API
-CMD ["uvicorn", "src.predict_api:app", "--host", "0.0.0.0", "--port", "8000"]
+# Default command to run the Flask API
+CMD ["python", "src/predict_api_flask.py"]
