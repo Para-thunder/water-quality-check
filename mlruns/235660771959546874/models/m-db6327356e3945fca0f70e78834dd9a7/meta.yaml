@@ -1,0 +1,10 @@
+artifact_location: file:///C:/Users/esaar/mlops_project/mlruns/235660771959546874/models/m-db6327356e3945fca0f70e78834dd9a7/artifacts
+creation_timestamp: 1764264772294
+experiment_id: '235660771959546874'
+last_updated_timestamp: 1764264860398
+model_id: m-db6327356e3945fca0f70e78834dd9a7
+model_type: null
+name: model
+source_run_id: 5cf9799fdef1401c8fc2e968cf8175d1
+status: 2
+status_message: null
